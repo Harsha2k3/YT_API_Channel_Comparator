@@ -24,7 +24,8 @@ This project uses the YouTube API to compare two YouTube channels based on vario
    - The Engagement Rate is a key metric used to measure the level of interaction and involvement a YouTube channel's audience has with its content. It is calculated by      considering various factors such as likes, comments, and views. A higher engagement rate indicates that the audience finds the content interesting and engaging. 
      This metric helps in understanding how effectively a channel is connecting with its viewers and fostering active participation.
    - The engagement rate can be calculated using the following formula:
-\[ \text{Engagement Rate} = \left( \frac{\text{Like Count} + \text{Comment Count}}{\text{View Count}} \right) \]
+     ![image](https://github.com/user-attachments/assets/71830087-fe6e-4b07-99c4-8b493bbd20af)
+
 
 7. **Sentiment Analysis on Comments using ML**:
    - Uses machine learning to analyze the sentiment of comments on videos from both channels.
