@@ -58,24 +58,25 @@ if st.button("Submit"):
     numeric_cols = ["video_count", "subscriber_count", "view_counts"]
     x[numeric_cols] = x[numeric_cols].apply(pd.to_numeric, errors="coerce")
 
+    # 1) Table for Subscriber Counts , Video Counts , View Counts
     st.write("Basic Information")
     st.write(x)
 
     st.header("Visualizations")
 
-    # Bar chart of video counts
+    # 2) Bar Chart of Subscriber Counts
     st.subheader("Bar Chart of Video Counts")
     plt.figure(figsize=(10, 6))
     sns.barplot(x="title", y="video_count", data=x)
     st.pyplot(plt)
 
-    # Bar chart of subscriber counts
+    # 3) Bar Chart of Video Counts
     st.subheader("Bar Chart of Subscriber Counts")
     plt.figure(figsize=(10, 6))
     sns.barplot(x="title", y="subscriber_count", data=x)
     st.pyplot(plt)
 
-    # Bar chart of view counts
+    # 4) Bar Chart of View Counts
     st.subheader("Bar Chart of View Counts")
     plt.figure(figsize=(10, 6))
     sns.barplot(x="title", y="view_counts", data=x)
@@ -136,7 +137,7 @@ if st.button("Submit"):
                 all_comments.append(comments_in_video_info)
 
             except:
-                # When error occurs - most likely because comments are disabled on a video
+                # Comments are disabled for some videos, so we need to handle that case
                 print('Could not get comments for video ' + video_id)
 
         return pd.DataFrame(all_comments)
@@ -163,6 +164,8 @@ if st.button("Submit"):
         else:
             return 'Neutral'
 
+
+    # 5) Growth Rate Analysis
     st.subheader("Growth Rate Analysis")
     for _, row in x.iterrows():
         st.markdown(f"**Analysis for {row['title']}**")
@@ -183,7 +186,6 @@ if st.button("Submit"):
         video_df['durationSecs'] = video_df['duration'].apply(lambda x: isodate.parse_duration(x))
         video_df['durationSecs'] = video_df['durationSecs'].astype('timedelta64[s]')
 
-        # Growth Rate Analysis and Predicting Channel Growth
         video_df['year'] = video_df['publishedAt'].dt.year
         video_df['month'] = video_df['publishedAt'].dt.month
 
@@ -218,6 +220,7 @@ if st.button("Submit"):
         st.pyplot(plt)
 
 
+    # 6) Engagement Rate
     all_channel_data = pd.DataFrame()
 
     st.subheader("Engagement rate")
@@ -239,7 +242,6 @@ if st.button("Submit"):
         video_df['durationSecs'] = video_df['duration'].apply(lambda x: isodate.parse_duration(x))
         video_df['durationSecs'] = video_df['durationSecs'].astype('timedelta64[s]')
 
-        # Growth Rate Analysis and Predicting Channel Growth
         video_df['year'] = video_df['publishedAt'].dt.year
         video_df['month'] = video_df['publishedAt'].dt.month
 
@@ -254,15 +256,13 @@ if st.button("Submit"):
         # Rename columns for clarity
         channel_data.rename(columns={'video_id': 'videoCount'}, inplace=True)
 
-        # Calculate Channel Engagement Rate (CER)
         channel_data['CER'] = ((channel_data['likeCount'] + channel_data['commentCount']) / channel_data['viewCount']) * 100
 
         st.write(f"On an average, about {round(channel_data['CER'][0], 2)}% of viewers of the videos on the channel engage with the content in the form of likes or comments.")
 
-        # Accumulate the engagement rate data
         all_channel_data = pd.concat([all_channel_data, channel_data])
 
-    # Plot Engagement Rates
+    # Plotting Engagement Rates
 
     plt.figure(figsize=(12, 8))
     sns.barplot(x='channelTitle', y='CER', data=all_channel_data)
@@ -272,6 +272,7 @@ if st.button("Submit"):
     st.pyplot(plt.gcf())
 
 
+    # 7) Sentiment Analysis on Comments using ML
     st.subheader("Sentiment Analysis on Comments")
     for _, row in x.iterrows():
         st.markdown(f"**Analysis for {row['title']}**")
@@ -292,19 +293,13 @@ if st.button("Submit"):
         video_df['durationSecs'] = video_df['duration'].apply(lambda x: isodate.parse_duration(x))
         video_df['durationSecs'] = video_df['durationSecs'].astype('timedelta64[s]')
 
-        # Growth Rate Analysis and Predicting Channel Growth
         video_df['year'] = video_df['publishedAt'].dt.year
         video_df['month'] = video_df['publishedAt'].dt.month
 
-        # Sentiment Analysis on Comments
-        # Initialize VADER sentiment analyzer
         analyzer = SentimentIntensityAnalyzer()
 
-        # Flatten the list of comments
         all_comments = [comment for sublist in comments_df['comments'] for comment in sublist]
 
-        # Calculate the overall sentiment for all comments
         overall_sentiment = get_overall_sentiment(all_comments)
 
-        # Display the overall sentiment
         st.write(f'Overall Sentiment on comments: {overall_sentiment}')
