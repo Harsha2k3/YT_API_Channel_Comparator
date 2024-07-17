@@ -1,0 +1,13 @@
+streamlit
+pandas
+numpy
+google-api-python-client
+python-dateutil
+isodate
+seaborn
+matplotlib
+nltk
+vaderSentiment
+prophet
+statsmodels
+IPython
