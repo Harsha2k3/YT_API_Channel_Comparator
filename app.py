@@ -47,7 +47,7 @@ for i in range(num_fields):
 if st.button("Submit"):
     input_values = [value for value in input_values if value]
 
-    api_key = "AIzaSyBzEpUDo6MV-QbhVEpx2lycr_bE2KXwwQs"
+    api_key = "AIzaSyD3EFeWmpw8c3EsheE_Gx9yguGzso7LkEo"
 
     channel_ids = input_values
 
