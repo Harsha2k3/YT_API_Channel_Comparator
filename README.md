@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/d6b6b59e-54a5-4464-a52d-f06d5307c237)# YouTube Channel Comparison
+# YouTube Channel Comparison
 
 This project uses the YouTube API to compare two YouTube channels based on various metrics. The project aims to provide a comprehensive analysis of the channels' performance, growth, and audience engagement.
 
