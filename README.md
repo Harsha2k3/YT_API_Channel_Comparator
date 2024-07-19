@@ -87,3 +87,6 @@ To get started with this project, follow these steps:
 2. **Generate visualizations and reports**:
     - The script will generate tables and charts for comparison.
     - The results will be saved in the `output` directory.
+
+## Contact :
+- For any inquiries or questions regarding the T-20 Score Predictor, please reach out to harshamamidipaka2003@gmail.com
